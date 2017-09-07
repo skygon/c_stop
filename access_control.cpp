@@ -22,14 +22,22 @@ public:
     Derived(){cout<<"Derived class constructor"<<endl;}
     virtual ~Derived(){cout<<"Derived class desconstructor"<<endl;}
     virtual void printSomething() {cout<<"Derived class print some thing"<<endl;}
-
-protected:
-    void printProtected(){
-        Base::printProtected();
-    }
-
-private:
-    void printPrivate(){
-        Base::printPrivate();
-    }
 };
+
+class DerivedPrivate : private Base
+{
+public:
+    virtual void printSomething() {cout<<"Derived class print some thing"<<endl;}
+private:
+    void myPrint(){
+        printProtected();
+    }
+    //printPrivate();
+};
+
+int main(){
+    Base *pb = new DerivedPrivate();
+    pb->printSomething();
+    return 0;
+}
+
